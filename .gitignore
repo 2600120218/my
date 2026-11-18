@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.DS_Store
+Thumbs.db
+*.log
+.dsh_probe.txt
+.dsh*
+
+# 任何包含密钥的本地文件都不允许提交
+.env
+.env.*
+*.key
+*.pem
+secrets.json

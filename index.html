@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>DeepSeek</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%234D6BFE'/%3E%3Cpath d='M5 12.5c1.4 0 2.6-.9 3.2-2.1C9.3 7.6 11.5 6.2 14 6.2c3.1 0 5.6 2.3 5.6 5.3 0 2.8-2.1 4.9-4.6 5.1-.4 1.4-1.7 2.2-3 2.2' fill='none' stroke='%23fff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <aside id="sidebar" class="sidebar" aria-label="对话列表"></aside>
+      <div id="scrim" class="scrim"></div>
+      <main class="main">
+        <header id="header" class="header"></header>
+        <div id="chat" class="chat"></div>
+        <div id="composer" class="composer-wrap"></div>
+      </main>
+    </div>
+    <div id="modal-root"></div>
+    <div id="toast-root"></div>
+    <script>
+      // 兜底诊断：如果模块脚本没能跑起来（file:// 打开、路径 404、语法错误），
+      // 这里会给出明确原因，而不是让页面看起来"按钮全都失效"。
+      window.setTimeout(function () {
+        var sidebar = document.getElementById('sidebar');
+        if (sidebar && sidebar.innerHTML.trim()) return;
+        var box = document.createElement('div');
+        box.style.cssText =
+          'position:fixed;left:0;right:0;top:0;z-index:9999;padding:14px 16px;' +
+          'background:#fff3f3;border-bottom:1px solid #ffd0d0;color:#b3261e;' +
+          'font:13px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;';
+        box.innerHTML =
+          '<b>页面脚本没有加载成功</b><br>' +
+          '常见原因：用 file:// 直接双击打开（浏览器会拦截 ES Module）、' +
+          '没有通过 <code>node scripts/serve.mjs</code> 启动服务，或 src/ 目录缺失。<br>' +
+          '请在该目录执行 <code>node scripts/serve.mjs</code>，然后访问 http://127.0.0.1:5173/ 。';
+        document.body.appendChild(box);
+      }, 1500);
+    </script>
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

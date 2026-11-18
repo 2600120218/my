@@ -1,0 +1,12 @@
+{
+  "name": "deepseek-chat-demo-clone",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "DeepSeek 移动端对话客户端（静态站点，零依赖）",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/serve.mjs dist"
+  }
+}

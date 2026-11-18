@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>电气工程及其自动化 · 大学生职业生涯规划</title>
+<style>
+:root{
+  --ink:#0A0F16;
+  --ink2:#111C28;
+  --paper:#F7F8FA;
+  --amber:#E9A13B;
+  --amber-soft:#F3C479;
+  --blue:#5B8DEF;
+  --slate:#6C7B8C;
+  --slate-l:#9AA7B4;
+  --line:rgba(10,15,22,.10);
+  --line-w:rgba(255,255,255,.14);
+  --sans:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+  --mono:"Bahnschrift","DIN Alternate","Consolas","SF Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#15181d}
+body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.deck{display:flex;flex-direction:column;align-items:center;padding:28px 0 60px}
+.slot{position:relative}
+.slide{
+  width:1280px;height:720px;background:var(--paper);position:relative;overflow:hidden;
+  transform-origin:top center;
+}
+.dark{background:var(--ink);color:#fff}
+
+/* ---------- shared chrome ---------- */
+.hd{position:absolute;left:78px;right:78px;top:52px;display:flex;align-items:center;justify-content:space-between}
+.tag{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.22em;color:var(--slate);font-weight:600}
+.tag::before{content:"";width:7px;height:7px;background:var(--amber);display:block}
+.pg{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--slate-l)}
+.title{position:absolute;left:78px;top:104px;font-size:41px;line-height:1.22;font-weight:800;letter-spacing:.01em}
+.title em{font-style:normal;color:var(--amber)}
+.body{position:absolute;left:78px;right:78px;top:206px;bottom:64px}
+.rule{position:absolute;left:78px;right:78px;height:1px;background:var(--line)}
+.rail{position:absolute;right:78px;bottom:34px;display:flex;align-items:center;gap:9px}
+.rail i{display:block;width:22px;height:2px;background:rgba(10,15,22,.16)}
+.rail i.on{background:var(--amber);width:36px}
+.dark .rule{background:var(--line-w)}
+.dark .rail i{background:rgba(255,255,255,.18)}
+.grid-bg{position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(10,15,22,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(10,15,22,.045) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(120% 90% at 85% 0%,#000 0%,transparent 72%);
+          mask-image:radial-gradient(120% 90% at 85% 0%,#000 0%,transparent 72%)}
+
+/* ---------- cover ---------- */
+.cover .wave{position:absolute;left:0;right:0;bottom:-2px;width:1280px;height:300px;opacity:.9}
+.cover .glow{position:absolute;width:900px;height:900px;right:-260px;top:-380px;border-radius:50%;
+  background:radial-gradient(circle,rgba(233,161,59,.16),rgba(233,161,59,0) 62%)}
+.cover .glow2{position:absolute;width:700px;height:700px;left:-260px;bottom:-320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(91,141,239,.18),rgba(91,141,239,0) 65%)}
+.cover .grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:80px 80px;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 78%);
+          mask-image:linear-gradient(180deg,#000 0%,transparent 78%)}
+.cover .inner{position:absolute;left:78px;top:96px;right:78px}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:12.5px;letter-spacing:.26em;color:var(--amber-soft);font-weight:600}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--amber)}
+.cover h1{margin-top:42px;font-size:74px;line-height:1.12;font-weight:800;letter-spacing:.02em}
+.cover h1 span{display:block;font-size:38px;font-weight:500;color:rgba(255,255,255,.62);letter-spacing:.12em;margin-top:18px}
+.cover .sub{margin-top:34px;font-size:17px;line-height:1.8;color:rgba(255,255,255,.72);max-width:660px;border-left:2px solid rgba(233,161,59,.55);padding-left:20px}
+.cover .meta{position:absolute;left:78px;bottom:66px;display:flex;gap:64px;font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:rgba(255,255,255,.55)}
+.cover .meta b{display:block;color:#fff;font-family:var(--sans);font-size:15px;letter-spacing:.08em;margin-top:9px;font-weight:600}
+.cover .blank{color:rgba(255,255,255,.35);letter-spacing:.2em}
+
+/* ---------- toc ---------- */
+.toc-list{position:absolute;left:78px;right:78px;top:214px}
+.toc-item{display:flex;align-items:baseline;gap:26px;padding:21px 0;border-top:1px solid var(--line)}
+.toc-item:last-child{border-bottom:1px solid var(--line)}
+.toc-item .n{font-family:var(--mono);font-size:15px;color:var(--amber);width:34px;letter-spacing:.06em}
+.toc-item .cn{font-size:29px;font-weight:700;width:190px}
+.toc-item .en{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;color:var(--slate-l);width:190px}
+.toc-item .d{font-size:14.5px;color:var(--slate);flex:1}
+
+/* ---------- section divider ---------- */
+.section .bignum{position:absolute;left:52px;top:112px;font-family:var(--mono);font-size:270px;line-height:.82;font-weight:700;color:rgba(255,255,255,.055);letter-spacing:-.02em}
+.section .sec-inner{position:absolute;left:78px;top:250px;right:78px}
+.section .en{font-family:var(--mono);font-size:12.5px;letter-spacing:.34em;color:var(--amber)}
+.section h2{margin-top:22px;font-size:66px;font-weight:800;letter-spacing:.04em}
+.section .lead{margin-top:30px;font-size:16.5px;line-height:1.95;color:rgba(255,255,255,.66);max-width:640px}
+.section .barline{width:88px;height:3px;background:var(--amber);margin-top:34px}
+
+/* ---------- generic content bits ---------- */
+.card{background:#fff;border:1px solid var(--line);border-radius:4px}
+.mono{font-family:var(--mono)}
+.kicker{font-size:12px;letter-spacing:.2em;color:var(--slate);font-weight:600}
+.mut{color:var(--slate)}
+.amber{color:var(--amber)}
+
+/* S4 profile */
+.pf{display:grid;grid-template-columns:410px 1fr;gap:56px;height:100%}
+.pf-card{border:1px solid var(--line);background:#fff;padding:30px 30px 26px;position:relative}
+.pf-card::before{content:"";position:absolute;left:0;top:0;width:100%;height:3px;background:var(--amber)}
+.pf-card h3{font-size:13px;letter-spacing:.2em;color:var(--slate);font-weight:600;margin-bottom:22px}
+.pf-row{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px dashed rgba(10,15,22,.09);font-size:14.5px}
+.pf-row:last-child{border-bottom:none}
+.pf-row .k{color:var(--slate);font-size:13.5px;letter-spacing:.06em}
+.pf-row .v{font-weight:600}
+.pf-row .blank{color:var(--slate-l);letter-spacing:.28em;font-weight:400}
+.truth h3{font-size:13px;letter-spacing:.2em;color:var(--slate);font-weight:600;margin-bottom:8px}
+.truth-item{display:flex;gap:22px;padding:14px 0;border-bottom:1px solid var(--line)}
+.truth-item .n{font-family:var(--mono);font-size:13px;color:var(--amber);padding-top:4px}
+.truth-item h4{font-size:18px;font-weight:700;margin-bottom:7px}
+.truth-item p{font-size:14px;line-height:1.75;color:var(--slate)}
+.quote{margin-top:16px;padding:16px 22px;background:#fff;border-left:3px solid var(--amber);font-size:16px;line-height:1.6;font-weight:600}
+
+/* S5 */
+.story{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.story .c{border:1px solid var(--line);background:#fff;padding:24px 24px 22px;height:236px;display:flex;flex-direction:column}
+.story .c .no{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--amber)}
+.story .c h4{font-size:18px;font-weight:700;margin:12px 0 4px}
+.story .c .role{font-size:12.5px;color:var(--slate-l);letter-spacing:.05em;margin-bottom:14px}
+.story .c p{font-size:13.5px;line-height:1.8;color:var(--slate)}
+.fail{margin-top:24px;border:1px dashed rgba(10,15,22,.22);padding:20px 26px;display:flex;gap:26px;align-items:center;background:rgba(255,255,255,.55)}
+.fail .lbl{font-size:12px;letter-spacing:.16em;color:var(--slate);white-space:nowrap}
+.fail p{font-size:14px;line-height:1.7;color:var(--slate)}
+.fail b{color:var(--ink)}
+
+/* S6 */
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+.ab h3{font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px}
+.ab h3 .dot{width:9px;height:9px;background:var(--amber)}
+.ab h3.neg .dot{background:#8A97A6}
+.ab ul{list-style:none;margin-top:6px}
+.ab li{padding:15px 0;border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:baseline}
+.ab li b{font-size:16.5px;width:96px;flex:none}
+.ab li span{font-size:13.5px;color:var(--slate);line-height:1.6}
+.cta{position:absolute;left:0;right:0;bottom:0;background:var(--ink);color:#fff;padding:17px 28px;display:flex;justify-content:space-between;align-items:center}
+.cta p{font-size:15px;letter-spacing:.04em}
+.cta em{font-style:normal;color:var(--amber);font-family:var(--mono);font-size:12px;letter-spacing:.2em}
+
+/* S8 stats */
+.bg8{display:grid;grid-template-columns:1fr 330px;gap:60px}
+.bigquote{font-size:31px;line-height:1.62;font-weight:700;letter-spacing:.01em}
+.bigquote .hl{background:linear-gradient(180deg,transparent 62%,rgba(233,161,59,.28) 62%)}
+.src{margin-top:18px;font-size:13px;color:var(--slate);letter-spacing:.04em}
+.stat{border-top:2px solid var(--ink);padding:18px 0 0;margin-bottom:26px}
+.stat .v{font-family:var(--mono);font-size:42px;font-weight:700;letter-spacing:-.01em;line-height:1}
+.stat .v small{font-size:15px;font-weight:600;margin-left:6px;letter-spacing:0}
+.stat .c{margin-top:10px;font-size:12.5px;line-height:1.7;color:var(--slate)}
+.notes{display:flex;gap:22px;margin-top:38px}
+.notes div{flex:1;border-left:2px solid rgba(10,15,22,.14);padding-left:16px}
+.notes b{display:block;font-size:14.5px;margin-bottom:8px}
+.notes p{font-size:12.8px;line-height:1.75;color:var(--slate)}
+
+/* S9 paths */
+.paths{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;height:calc(100% - 46px)}
+.path{border:1px solid var(--line);background:#fff;padding:24px 20px;display:flex;flex-direction:column}
+.path .no{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--amber)}
+.path h4{font-size:18px;font-weight:700;margin:10px 0 16px;line-height:1.35}
+.path .row{font-size:12.6px;line-height:1.72;margin-bottom:12px;color:var(--slate)}
+.path .row b{display:block;font-size:10.5px;letter-spacing:.16em;color:var(--slate-l);margin-bottom:4px;font-weight:600}
+.path .money{font-family:var(--mono);font-size:14.5px;color:var(--ink);font-weight:600}
+.path .cost{margin-top:auto;padding-top:12px;border-top:1px dashed rgba(10,15,22,.14);font-size:12.2px;line-height:1.65;color:var(--slate)}
+.path .cost b{color:#B4552F;font-weight:600}
+.footnote{position:absolute;left:0;right:0;bottom:-2px;font-size:13.5px;color:var(--slate);letter-spacing:.02em}
+.footnote b{color:var(--ink)}
+
+/* S11 */
+.assess{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.acard{background:#fff;border:1px solid var(--line);padding:26px 28px 24px;position:relative}
+.acard .h{font-size:11.5px;letter-spacing:.2em;color:var(--slate);font-weight:600}
+.acard .code{font-family:var(--mono);font-size:52px;font-weight:700;line-height:1;margin:14px 0 6px;color:var(--ink)}
+.acard .code small{font-size:15px;color:var(--slate);font-weight:600;letter-spacing:.06em}
+.acard .desc{font-size:13.4px;line-height:1.8;color:var(--slate);margin-top:6px}
+.acard .fit{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:12.6px;color:var(--ink)}
+.traits{list-style:none;margin-top:8px}
+.traits li{font-size:13.2px;line-height:1.9;color:var(--slate);padding-left:16px;position:relative}
+.traits li::before{content:"";position:absolute;left:0;top:11px;width:6px;height:1px;background:var(--amber)}
+.bound{margin-top:24px;background:rgba(10,15,22,.035);border-left:3px solid var(--ink);padding:18px 24px;font-size:13.6px;line-height:1.8;color:var(--slate)}
+.bound b{color:var(--ink)}
+
+/* S12 bars */
+.chart{position:absolute;left:0;top:6px;width:640px}
+.brow{display:flex;align-items:center;gap:16px;margin-bottom:22px}
+.brow .lb{width:118px;font-size:13.5px;color:var(--ink);flex:none}
+.brow .track{flex:1;height:26px;background:rgba(10,15,22,.06);position:relative}
+.brow .fill{position:absolute;left:0;top:0;bottom:0;background:var(--ink)}
+.brow .fill.a{background:var(--amber)}
+.brow .pc{width:52px;text-align:right;font-family:var(--mono);font-size:14.5px;font-weight:600}
+.side{position:absolute;left:720px;right:0;top:0}
+.side h4{font-size:15px;font-weight:700;margin-bottom:14px}
+.side p{font-size:13.3px;line-height:1.85;color:var(--slate);margin-bottom:14px}
+.side .note{font-size:11.5px;color:var(--slate-l);letter-spacing:.04em}
+
+/* S13 columns */
+.cols{position:absolute;left:0;right:0;top:16px;height:300px;display:flex;align-items:flex-end;gap:40px;padding-left:20px}
+.col{width:132px;display:flex;flex-direction:column;align-items:center}
+.col .v{font-family:var(--mono);font-size:16px;font-weight:700;margin-bottom:10px}
+.col .bar{width:100%;background:linear-gradient(180deg,var(--ink),#263444)}
+.col .bar.a{background:linear-gradient(180deg,var(--amber),#C9862A)}
+.col .y{margin-top:12px;font-size:12.5px;color:var(--slate);letter-spacing:.06em}
+.axis{position:absolute;left:0;right:0;top:316px;height:1px;background:rgba(10,15,22,.18)}
+.kit{position:absolute;left:700px;top:8px;right:0}
+.kit .chip{display:inline-block;border:1px solid var(--line);background:#fff;padding:7px 13px;font-size:12.2px;margin:0 8px 10px 0;color:var(--ink)}
+.kit p{font-size:13.3px;line-height:1.85;color:var(--slate);margin-top:8px}
+
+/* S14 table */
+table{width:100%;border-collapse:collapse}
+th{font-size:11.5px;letter-spacing:.16em;color:var(--slate);font-weight:600;text-align:left;padding:0 14px 12px 0;border-bottom:2px solid var(--ink)}
+td{font-size:13.4px;padding:16px 14px 16px 0;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65;color:var(--slate)}
+td.k{color:var(--ink);font-weight:700;font-size:14px}
+td.money{font-family:var(--mono);color:var(--ink);font-weight:600;white-space:nowrap}
+
+/* S15 */
+.field{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.fcard{background:#fff;border:1px solid var(--line);padding:22px 22px 20px;height:252px;display:flex;flex-direction:column}
+.fcard .idx{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--amber)}
+.fcard h4{font-size:16.5px;font-weight:700;margin:11px 0 10px}
+.fcard p{font-size:12.8px;line-height:1.8;color:var(--slate)}
+.fcard .q{margin-top:auto;font-size:12.4px;color:var(--ink);border-top:1px dashed rgba(10,15,22,.14);padding-top:12px;line-height:1.6}
+.answer{margin-top:22px;display:flex;gap:16px;align-items:baseline}
+.answer .lb{font-size:12px;letter-spacing:.16em;color:var(--slate);white-space:nowrap}
+.answer p{font-size:15.5px;font-weight:600;line-height:1.6}
+.answer p span{color:#B4552F}
+
+/* S17-19 */
+.goal{position:absolute;left:0;top:0;width:330px}
+.goal .lb{font-size:11.5px;letter-spacing:.2em;color:var(--slate);font-weight:600;margin-bottom:12px}
+.goal .g{font-size:23px;font-weight:800;line-height:1.5;margin-bottom:20px}
+.goal .chk{background:#fff;border:1px solid var(--line);padding:18px 20px}
+.goal .chk .lb{font-size:11px;letter-spacing:.18em;color:var(--amber);margin-bottom:10px;font-weight:700}
+.goal .chk li{list-style:none;font-size:12.8px;line-height:1.9;color:var(--slate);padding-left:18px;position:relative}
+.goal .chk li::before{content:"✓";position:absolute;left:0;color:var(--amber);font-size:11px;top:3px}
+.tasks{position:absolute;left:392px;right:0;top:0}
+.task{display:flex;gap:24px;padding:20px 0;border-top:1px solid var(--line)}
+.task:last-child{border-bottom:1px solid var(--line)}
+.task .n{font-family:var(--mono);font-size:13px;color:var(--amber);flex:none;width:24px;padding-top:4px}
+.task h4{font-size:17px;font-weight:700;margin-bottom:8px}
+.task p{font-size:13.4px;line-height:1.8;color:var(--slate)}
+
+/* timeline S19 */
+.tl{position:relative;margin-top:26px;height:250px}
+.tl .line{position:absolute;left:0;right:0;top:0;height:1px;background:rgba(10,15,22,.18)}
+.tl .pts{display:flex;justify-content:space-between}
+.tl .p{width:23%;position:relative;padding-top:26px}
+.tl .p::before{content:"";position:absolute;top:-4px;left:0;width:9px;height:9px;background:var(--amber);border-radius:50%}
+.tl .p .y{font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;color:var(--slate);margin-bottom:10px}
+.tl .p h4{font-size:16px;font-weight:700;margin-bottom:10px}
+.tl .p p{font-size:12.8px;line-height:1.8;color:var(--slate)}
+
+/* S21 */
+.mtx{width:100%;border-collapse:collapse}
+.mtx th{font-size:11px;letter-spacing:.16em;color:var(--slate);padding-bottom:10px;border-bottom:2px solid var(--ink);text-align:left}
+.mtx td{padding:15px 16px 15px 0;border-bottom:1px solid var(--line);font-size:12.9px;line-height:1.7;color:var(--slate);vertical-align:top}
+.mtx td.s{font-weight:700;color:var(--ink);font-size:13.5px;white-space:nowrap}
+.mtx td.bad{color:#A8452B}
+.planb{margin-top:22px;display:flex;align-items:center;gap:14px}
+.planb .lb{font-size:11.5px;letter-spacing:.18em;color:var(--slate);font-weight:600;white-space:nowrap}
+.planb .chip{border:1px solid rgba(10,15,22,.2);background:#fff;padding:8px 14px;font-size:12.6px}
+
+/* S22 */
+.end .q{position:absolute;left:78px;right:78px;top:230px;font-size:52px;line-height:1.55;font-weight:800;letter-spacing:.02em}
+.end .q small{display:block;font-size:17px;font-weight:400;color:rgba(255,255,255,.55);letter-spacing:.1em;margin-top:26px}
+.end .sig{position:absolute;left:78px;bottom:64px;display:flex;gap:56px;font-size:13.5px;color:rgba(255,255,255,.5);letter-spacing:.08em}
+.end .sig b{display:block;color:#fff;font-size:14.5px;margin-top:8px;letter-spacing:.16em}
+
+/* ---------- print ---------- */
+@page{size:1280px 720px;margin:0}
+@media print{
+  html,body{background:#fff}
+  .deck{padding:0;gap:0}
+  .slot{height:auto!important}
+  .slide{transform:none!important;page-break-after:always;break-after:page;box-shadow:none}
+  .slide:last-child{page-break-after:auto;break-after:auto}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- ============ 01 封面 ============ -->
+<section class="slide dark cover">
+  <div class="grid"></div>
+  <div class="glow"></div>
+  <div class="glow2"></div>
+  <svg class="wave" viewBox="0 0 1280 300" preserveAspectRatio="none" fill="none">
+    <path d="M0,190 C120,120 200,120 320,190 C440,260 520,260 640,190 C760,120 840,120 960,190 C1080,260 1200,260 1280,196" stroke="rgba(233,161,59,.35)" stroke-width="2"/>
+    <path d="M0,232 C120,162 200,162 320,232 C440,302 520,302 640,232 C760,162 840,162 960,232 C1080,302 1200,302 1280,238" stroke="rgba(91,141,239,.3)" stroke-width="2"/>
+    <path d="M0,148 C120,78 200,78 320,148 C440,218 520,218 640,148 C760,78 840,78 960,148 C1080,218 1200,218 1280,154" stroke="rgba(255,255,255,.10)" stroke-width="1.5"/>
+  </svg>
+  <div class="inner">
+    <div class="eyebrow">2026 · 全国大学生职业规划大赛 · 成长赛道</div>
+    <h1>电气工程及其自动化
+      <span>大学生职业生涯规划</span>
+    </h1>
+    <p class="sub">不写"成为行业领军人才"。<br>只写一个普通电气生，在大三之前必须做完的几件事。</p>
+  </div>
+  <div class="meta">
+    <div>姓　名<b class="blank">＿＿＿＿＿＿</b></div>
+    <div>学　号<b class="blank">＿＿＿＿＿＿</b></div>
+    <div>院　校<b>桂林电子科技大学 · 机电工程学院</b></div>
+    <div>时　间<b>2026 年 11 月</b></div>
+  </div>
+</section>
+
+<!-- ============ 02 目录 ============ -->
+<section class="slide">
+  <div class="grid-bg"></div>
+  <header class="hd"><span class="tag">CONTENTS</span><span class="pg">02 / 22</span></header>
+  <h2 class="title">目录</h2>
+  <div class="toc-list">
+    <div class="toc-item"><span class="n">01</span><span class="cn">自我认知</span><span class="en">SELF-AWARENESS</span><span class="d">一份不带滤镜的自我盘点：我会什么，我缺什么</span></div>
+    <div class="toc-item"><span class="n">02</span><span class="cn">环境分析</span><span class="en">THE FIELD</span><span class="d">电气行业的真实门槛、真实收入与真实代价</span></div>
+    <div class="toc-item"><span class="n">03</span><span class="cn">职业定位</span><span class="en">POSITIONING</span><span class="d">从两份测评，到一次变电站里的现场判断</span></div>
+    <div class="toc-item"><span class="n">04</span><span class="cn">行动路径</span><span class="en">ROADMAP</span><span class="d">大一到大四，每一年做什么、做到什么程度算过关</span></div>
+    <div class="toc-item"><span class="n">05</span><span class="cn">评估调整</span><span class="en">REVIEW</span><span class="d">什么信号出现时，我应该承认此路不通并改道</span></div>
+  </div>
+  <div class="rail"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+</section>
+
+<!-- ============ 03 section 01 ============ -->
+<section class="slide dark section">
+  <div class="bignum">01</div>
+  <div class="sec-inner">
+    <div class="en">SELF-AWARENESS</div>
+    <h2>自我认知</h2>
+    <p class="lead">先承认普通：绩点中游、没做过完整项目、上台会紧张。<br>规划要从这些短板写起，而不是从"我要成为领军人才"写起。</p>
+    <div class="barline"></div>
+  </div>
+</section>
+
+<!-- ============ 04 个人档案 ============ -->
+<section class="slide">
+  <div class="grid-bg"></div>
+  <header class="hd"><span class="tag">01 · 自我认知</span><span class="pg">04 / 22</span></header>
+  <h2 class="title">一张 <em>没有滤镜</em> 的个人档案</h2>
+  <div class="body">
+    <div class="pf">
+      <div class="pf-card">
+        <h3>BASIC PROFILE</h3>
+        <div class="pf-row"><span class="k">姓　名</span><span class="v blank">＿＿＿＿＿</span></div>
+        <div class="pf-row"><span class="k">学　号</span><span class="v blank">＿＿＿＿＿</span></div>
+        <div class="pf-row"><span class="k">学　院</span><span class="v">机电工程学院</span></div>
+        <div class="pf-row"><span class="k">专　业</span><span class="v">电气工程及其自动化</span></div>
+        <div class="pf-row"><span class="k">年　级</span><span class="v">2026 级 · 大一</span></div>
+        <div class="pf-row"><span class="k">生源地</span><span class="v">广西 · 县城</span></div>
+        <div class="pf-row"><span class="k">大一绩点</span><span class="v">3.2 / 4.0（专业中游）</span></div>
+      </div>
+      <div class="truth">
+        <h3>三句真话</h3>
+        <div class="truth-item"><span class="n">01</span><div><h4>慢热</h4><p>开学第一个月没加任何社团，第二个月才敢去面试。不擅长自我介绍，但熟了之后话不少。</p></div></div>
+        <div class="truth-item"><span class="n">02</span><div><h4>坐得住</h4><p>焊一块板子能坐一下午，调不出波形也愿意再试一遍。这是我目前唯一确定的长处。</p></div></div>
+        <div class="truth-item"><span class="n">03</span><div><h4>认死理</h4><p>答应的事一定做完，但不太会变通。老师说我"踏实"，同学说我"轴"。</p></div></div>
+        <div class="quote">"我不指望靠天赋赢，我指望靠'把事做完'赢。"</div>
+      </div>
+    </div>
+  </div>
+  <div class="rail"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+</section>
+
+<!-- ============ 05 经历 ============ -->
+<section class="slide">
+  <div class="grid-bg"></div>
+  <header class="hd"><span class="tag">01 · 自我认知</span><span class="pg">05 / 22</span></header>
+  <h2 class="title">做过的事，和一件 <em>没做完</em> 的事</h2>
+  <div class="body">
+    <div class="story">
+      <div class="c">
+        <div class="no">01</div>
+        <h4>电子设计协会</h4>
+        <div class="role">干事 · 2026.10 至今</div>
+        <p>第一次用电烙铁，焊废两块板，第三块点亮了一颗 LED。懂了电阻电容，也懂了"手抖就要重来"。</p>
+      </div>
+      <div class="c">
+        <div class="no">02</div>
+        <h4>院学生会 学习部</h4>
+        <div class="role">干事 · 2026.10 至今</div>
+        <p>负责晚自习签到表，做过一次 200 人的考场排位。琐碎，但第一次体会到"表格错一格，全班返工"。</p>
+      </div>
+      <div class="c">
+        <div class="no">03</div>
+        <h4>县供电所跟岗</h4>
+        <div class="role">寒假 · 3 天</div>
+        <p>看师傅爬杆、抄表、处理一次跳闸。第一次知道：电不会自己到家里，是有人在雨里守着。</p>
+      </div>
+    </div>
+    <div class="fail">
+      <span class="lbl">没做完的</span>
+      <p><b>数学建模校赛，报名后弃赛。</b>三个人组队，看到题目第一晚就懵了，第三天我提出退出。这是我第一次承认：我扛不住"看不懂还要硬做"的东西——这个毛病，必须在大二之前改掉。</p>
+    </div>
+  </div>
+  <div class="rail"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+</section>
+
+<!-- ============ 06 能力盘点 ============ -->
+<section class="slide">
+  <div class="grid-bg"></div>
+  <header class="hd"><span class="tag">01 · 自我认知</span><span class="pg">06 / 22</span></header>
+  <h2 class="title">能力盘点：<em>四条底牌</em>，四个窟窿</h2>
+  <div class="body">
+    <div class="ab">
+      <div>
+        <h3><span class="dot"></span>我已经有的</h3>
+        <ul>
+          <li><b>动手</b><span>万用表、示波器、电烙铁上手快，不怕拆坏</span></li>
+          <li><b>耐性</b><span>能对着一块板子耗一下午，重复劳动不烦躁</span></li>
+          <li><b>守时</b><span>交作业、值班、开会从不迟到，答应就做到</span></li>
+          <li><b>方向清</b><span>认准电气，暂时不摇摆，不跟风转专业</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="neg"><span class="dot"></span>我还缺的</h3>
+        <ul>
+          <li><b>绩点</b><span>3.2，离专业前 30% 还差一截，保研基本无望</span></li>
+          <li><b>英语</b><span>四级未过，这是电网统考与考研的硬门槛</span></li>
+          <li><b>项目</b><span>没有一件能独立讲三分钟的完整作品</span></li>
+          <li><b>表达</b><span>当着一屋子人讲话会紧张、语速变快</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="cta"><p>这 8 条，就是未来三年要一条一条划掉的清单。</p><em>NOT A WISH LIST — A CHECKLIST</em></div>
+  </div>
+  <div class="rail"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+</section>
+
+<!-- ============ 07 section 02 ============ -->
+<section class="slide dark section">
+  <div class="bignum">02</div>
+  <div class="sec-inner">
+    <div class="en">THE FIELD</div>
+    <h2>环境分析</h2>
+    <p class="lead">电气不是"铁饭碗"三个字就能概括的。<br>它更像一道窄门：门里的人稳定，门外的人很多。</p>
+    <div class="barline"></div>
+  </div>
+</section>
+
+<!-- ============ 08 时代背景 ============ -->
+<section class="slide">
+  <div class="grid-bg"></div>
+  <header class="hd"><span class="tag">02 · 环境分析</span><span class="pg">08 / 22</span></header>
+  <h2 class="title">我赶上的，是 <em>一个正在重建的电力系统</em></h2>
+  <div class="body">
+    <div class="bg8">
+      <div>
+        <p class="bigquote">"构建以<span class="hl">新能源为主体</span>的新型电力系统。"</p>
+        <p class="src">—— 2021 年 3 月，中央财经委员会第九次会议</p>
+        <div class="notes">
+          <div><b>总量压力</b><p>毕业生一年比一年多，同一个岗位收到的简历是五年前的数倍。</p></div>
+          <div><b>结构机会</b><p>电网侧稳、新能源侧涨、装备侧活，三条线都在要人，但要的人不一样。</p></div>
+          <div><b>门槛抬高</b><p>本科能报的岗位在收缩，笔试分数与实习经历的分量越来越重。</p></div>
+        </div>
+      </div>
+      <div>
+        <div class="stat"><div class="v">1222<small>万</small></div><div class="c">2025 届全国高校毕业生规模<br>（教育部）</div></div>
+        <div class="stat"><div class="v">6.8<small>%</small></div><div class="c">2024 年全社会用电量同比增速<br>（中电联）</div></div>
+        <div class="stat"><div class="v">3<small>年</small></div><div class="c">电气类本科从入职到能独立<br>值班的普遍周期</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="rail"><i></i><i class="on"></i><i></i><i></i><i></i></div>
+</section>
+
+<!-- ============ 09 四条路径 ============ -->
+<section class="slide">
+  <div class="grid-bg"></div>
+  <header class="hd"><span class="tag">02 · 环境分析</span><span class="pg">09 / 22</span></header>
+  <h2 class="title">电气生的 <em>四条真实出路</em></h2>
+  <div class="body">
+    <div class="paths">
+      <div class="path">
+        <div class="no">PATH 01</div>
+        <h4>电网系统<br>南方电网 · 广西电网</h4>
+        <div class="row"><b>门　槛</b>本科可报，须通过统一笔试 + 面试；四级是硬条件</div>
+        <div class="row"><b>收　入</b><span class="money">6–10 万 / 年</span><br>县公司 6–8 万，地市局 8–10 万</div>
+        <div class="cost"><b>代价：</b>地域基本固定，倒班与夜班抢修是常态，晋升按资历排队。</div>
+      </div>
+      <div class="path">
+        <div class="no">PATH 02</div>
+        <h4>发电与新能源<br>华能 · 国家能源 · 光伏储能</h4>
+        <div class="row"><b>门　槛</b>本科为主，看得懂设备、能接受现场作业</div>
+        <div class="row"><b>收　入</b><span class="money">6–9 千 / 月</span><br>驻场补贴另计</div>
+        <div class="cost"><b>代价：</b>项目地偏远、流动性大，一年换几个场站不稀奇。</div>
+      </div>
+      <div class="path">
+        <div class="no">PATH 03</div>
+        <h4>电气装备制造<br>南瑞 · 许继 · 汇川 · 正泰</h4>
+        <div class="row"><b>门　槛</b>看项目经历与动手能力，面试常让你讲做过的板子</div>
+        <div class="row"><b>收　入</b><span class="money">6–12 万 / 年</span><br>弹性大，看能力与城市</div>
+        <div class="cost"><b>代价：</b>出差多、节奏快，35 岁前后有明显的转型压力。</div>
+      </div>
+      <div class="path">
+        <div class="no">PATH 04</div>
+        <h4>升学<br>电气工程 学硕 / 专硕</h4>
+        <div class="row"><b>门　槛</b>初试 320–360 分区间，复试看项目与本科背景</div>
+        <div class="row"><b>收　入</b><span class="money">3 年时间成本</span><br>毕业后再定岗</div>
+        <div class="cost"><b>代价：</b>三年机会成本，且电气考研是全工科最卷的方向之一。</div>
+      </div>
+    </div>
+    <p class="footnote">四条路没有高下，只有一句话要回答：<b>这条路要我付的代价，我付不付得起。</b></p>
+  </div>
+  <div class="rail"><i></i><i class="on"></i><i></i><i></i><i></i></div>
+</section>
+
+<!-- ============ 10 section 03 ============ -->
+<section class="slide dark section">
+  <div class="bignum">03</div>
+  <div class="sec-inner">
+    <div class="en">POSITIONING</div>
+    <h2>职业定位</h2>
+    <p class="lead">测评告诉我"我像什么人"，现场告诉我"我能不能待下去"。<br>两者都成立，才敢叫定位。</p>
+    <div class="barline"></div>
+  </div>
+</section>
+
+<!-- ============ 11 测评 ============ -->
+<section class="slide">
+  <div class="grid-bg"></div>
+  <header class="hd"><span class="tag">03 · 职业定位</span><span class="pg">11 / 22</span></header>
+  <h2 class="title">两份测评，指向 <em>同一类工作</em></h2>
+  <div class="body">
+    <div class="assess">
+      <div class="acard">
+        <div class="h">霍兰德职业兴趣</div>
+        <div class="code">R<small>＋ C</small></div>
+        <div class="desc">现实型 + 常规型：愿意动手，喜欢和工具、设备打交道；偏好规则明确、结果可验证的事，对空泛讨论兴趣不大。</div>
+        <div class="fit">适配：变电运维 · 配电运检 · 二次调试 · 电气绘图</div>
+      </div>
+      <div class="acard">
+        <div class="h">MBTI 职业性格</div>
+        <div class="code">ISTJ<small>　物流师</small></div>
+        <ul class="traits">
+          <li>做事有计划，答应的事按时交，不喜欢临时改期</li>
+          <li>守规矩、认死理，适合有标准流程的岗位</li>
+          <li>不爱出风头，团队里更像"干活的那个"</li>
+          <li>遇到突发状况会先紧张，需要刻意练习</li>
+        </ul>
+        <div class="fit">适配：运维检修 · 二次调试 · 工程设计</div>
+      </div>
+    </div>
+    <div class="bound"><b>但要说清楚：</b>测评只是镜子，不是判决书。它只能说明"我大概是这样的人"，不能证明"我一定适合这份工作"。真正的判断，得靠大三那次实习——以及变电站里那三天。</div>
+  </div>
+  <div class="rail"><i></i><i></i><i class="on"></i><i></i><i></i></div>
+</section>
+
+<!-- ============ 12 行业结构 ============ -->
+<section class="slide">
+  <div class="grid-bg"></div>
+  <header class="hd"><span class="tag">03 · 职业定位</span><span class="pg">12 / 22</span></header>
+  <h2 class="title">八成电气生，流向这 <em>三个方向</em></h2>
+  <div class="body">
+    <div class="chart">
+      <div class="brow"><span class="lb">电网系统</span><div class="track"><div class="fill a" style="width:35%"></div></div><span class="pc">35%</span></div>
+      <div class="brow"><span class="lb">装备制造</span><div class="track"><div class="fill" style="width:30%"></div></div><span class="pc">30%</span></div>
+      <div class="brow"><span class="lb">发电与新能源</span><div class="track"><div class="fill" style="width:25%"></div></div><span class="pc">25%</span></div>
+      <div class="brow"><span class="lb">其他 / 升学</span><div class="track"><div class="fill" style="width:10%"></div></div><span class="pc">10%</span></div>
+      <p class="note" style="margin-top:26px">电气类本科毕业生去向结构（综合多校就业质量报告估算）</p>
+    </div>
+    <div class="side">
+      <h4>这个结构意味着什么</h4>
+      <p>电网是最大单一雇主，但它每年招的人数基本稳定；真正在扩的是新能源和装备制造。</p>
+      <p>电力是典型的"重资产、长周期"行业：技术积累不会白费，越老越值钱；但入门靠统考，容错率极低——一次没过，就要等下一年。</p>
+      <p>所以对我这种人（动手强、表达弱、求稳），<b>电网是首选，但不是唯一解</b>。装备制造反而是更看重"能做出东西"的地方。</p>
+    </div>
+  </div>
+  <div class="rail"><i></i><i></i><i class="on"></i><i></i><i></i></div>
+</section>
+
+<!-- ============ 13 招聘规模 ============ -->
+<section class="slide">
+  <div class="grid-bg"></div>
+  <header class="hd"><span class="tag">03 · 职业定位</span><span class="pg">13 / 22</span></header>
+  <h2 class="title">名额在涨，但 <em>涨得很慢</em></h2>
+  <div class="body">
+    <div class="cols">
+      <div class="col"><div class="v">约 8000</div><div class="bar" style="height:196px"></div><div class="y">2022 年</div></div>
+      <div class="col"><div class="v">约 8300</div><div class="bar" style="height:206px"></div><div class="y">2023 年</div></div>
+      <div class="col"><div class="v">约 8600</div><div class="bar" style="height:216px"></div><div class="y">2024 年</div></div>
+      <div class="col"><div class="v">约 8800</div><div class="bar a" style="height:228px"></div><div class="y">2025 年</div></div>
+    </div>
+    <div class="axis"></div>
+    <div class="kit">
+      <h4 style="font-size:15px;font-weight:700;margin-bottom:14px">南方电网校园招聘规模（估算，含五省区）</h4>
+      <span class="chip">本科可报</span><span class="chip">电气类为主</span><span class="chip">县公司机会更多</span>
+      <p>四年间增长不到一成，而同期电气类毕业生人数增长远高于此。这就是"名额增幅慢"的真实含义。</p>
+      <p><b>一个很多同学到大三才知道的事实：</b>广西属于南方电网，不参加国家电网统考。复习方向、报名时间、考试科目都不同——早一年搞清楚，就少走一年弯路。</p>
+    </div>
+  </div>
+  <div class="rail"><i></i><i></i><i class="on"></i><i></i><i></i></div>
+</section>
+
+<!-- ============ 14 薪资与胜任力 ============ -->
+<section class="slide">
+  <div class="grid-bg"></div>
+  <header class="hd"><span class="tag">03 · 职业定位</span><span class="pg">14 / 22</span></header>
+  <h2 class="title">钱不算多，<em>胜任标准才是真门槛</em></h2>
+  <div class="body">
+    <table>
+      <tr><th style="width:210px">岗位（广西为例）</th><th style="width:150px">起薪参考</th><th style="width:250px">硬门槛</th><th>决定能不能干下去的东西</th></tr>
+      <tr>
+        <td class="k">县公司 变电运维</td>
+        <td class="money">6–8 万 / 年</td>
+        <td>统考笔试 + 四级 + 低压电工证</td>
+        <td>倒班耐受力、规程记忆、现场不慌</td>
+      </tr>
+      <tr>
+        <td class="k">地市局 配电运检</td>
+        <td class="money">8–10 万 / 年</td>
+        <td>统考分数靠前 + 实习经历</td>
+        <td>现场判断、与用户和施工队的沟通</td>
+      </tr>
+      <tr>
+        <td class="k">设备厂 调试工程师</td>
+        <td class="money">6–9 千 / 月</td>
+        <td>能讲清楚一个自己做过的项目</td>
+        <td>出差适应度、上手速度、抗压</td>
+      </tr>
+    </table>
+    <div class="notes" style="margin-top:36px">
+      <div><b>专业知识</b><p>电路、电机学、电力系统分析、继电保护、高电压技术——这五门是统考核心，也是面试最常问的。</p></div>
+      <div><b>工具技能</b><p>CAD 画图、MATLAB/Simulink 仿真、看懂二次接线图、会用万用表与继保测试仪。</p></div>
+      <div><b>软性门槛</b><p>能倒班、能出抢修、能在班前会上把问题讲清楚；被师傅当众批评时不玻璃心。</p></div>
+    </div>
+  </div>
+  <div class="rail"><i></i><i></i><i class="on"></i><i></i><i></i></div>
+</section>
+
+<!-- ============ 15 职业体验 ============ -->
+<section class="slide">
+  <div class="grid-bg"></div>
+  <header class="hd"><span class="tag">03 · 职业定位</span><span class="pg">15 / 22</span></header>
+  <h2 class="title">三天跟岗，<em>三份田野笔记</em></h2>
+  <div class="body">
+    <div class="field">
+      <div class="fcard">
+        <div class="idx">NOTE 01 · 设备区</div>
+        <h4>现场是脏、吵、热的</h4>
+        <p>变压器嗡嗡响，夏天设备区像蒸笼，安全帽和绝缘鞋一穿就是半天。和"坐在办公室看屏幕"完全是两回事。</p>
+        <div class="q">我问师傅：天天这样不烦吗？他说：习惯了，比在外面晒着强。</div>
+      </div>
+      <div class="fcard">
+        <div class="idx">NOTE 02 · 值班室</div>
+        <h4>倒班是绕不过去的</h4>
+        <p>24 小时值班，夜里跳闸就得走。和两位在电网工作的学长聊过，他们说前三年最难熬的不是技术，是作息。</p>
+        <div class="q">这一点我得提前接受，而不是入职后才发现。</div>
+      </div>
+      <div class="fcard">
+        <div class="idx">NOTE 03 · 师傅的话</div>
+        <h4>规程是用事故写的</h4>
+        <p>师傅带徒弟，前三年主要靠"跟"和"记"：跟班、记票、背规程。想快也快不了，急也没用。</p>
+        <div class="q">"规程背不下来，就别上现场。"</div>
+      </div>
+    </div>
+    <div class="answer">
+      <span class="lb">我的判断</span>
+      <p>这样的日子，我能过十年吗？——现在的答案是：<span>能先试三年</span>。三年之后，用技能等级和是否还愿意倒班，来决定留还是走。</p>
+    </div>
+  </div>
+  <div class="rail"><i></i><i></i><i class="on"></i><i></i><i></i></div>
+</section>
+
+<!-- ============ 16 section 04 ============ -->
+<section class="slide dark section">
+  <div class="bignum">04</div>
+  <div class="sec-inner">
+    <div class="en">ROADMAP</div>
+    <h2>行动路径</h2>
+    <p class="lead">规划不是写"我要努力"。<br>是写清楚哪一年、做什么、做到什么程度算过关。</p>
+    <div class="barline"></div>
+  </div>
+</section>
+
+<!-- ============ 17 短期 ============ -->
+<section class="slide">
+  <div class="grid-bg"></div>
+  <header class="hd"><span class="tag">04 · 行动路径</span><span class="pg">17 / 22</span></header>
+  <h2 class="title">短期｜大一 — 大二：<em>先把地基打牢</em></h2>
+  <div class="body">
+    <div class="goal">
+      <div class="lb">TWO-YEAR GOAL</div>
+      <div class="g">绩点 3.5+<br>四级过线<br>独立做完一个作品</div>
+      <div class="chk">
+        <div class="lb">验收标准</div>
+        <ul>
+          <li>绩点 ≥ 3.5，专业排名进前 30%</li>
+          <li>四级 ≥ 425 分（大二上之前）</li>
+          <li>一件能讲满 3 分钟的课设作品</li>
+          <li>至少完整参加 1 次学科竞赛</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tasks">
+      <div class="task"><span class="n">01</span><div><h4>学业：三门地基课，一门都不能塌</h4><p>高数、电路分析、C 语言。每学期绩点提升 0.1，不求爆发，只求不掉队。听不懂的章节当周补，不攒到期末。</p></div></div>
+      <div class="task"><span class="n">02</span><div><h4>动手：留在电协，2027 年打一次校电赛</h4><p>目标不是拿奖，是"完整做完一次"：从选题、画板、焊接到调试，全程跟到底。这比十个半途而废的项目有用。</p></div></div>
+      <div class="task"><span class="n">03</span><div><h4>习惯：每周 10 小时自习，每学期一页复盘</h4><p>固定时段、固定座位，不看心情。每学期末写一页纸：哪门课崩了、为什么、下学期怎么改。这本小册子，比任何规划书都准。</p></div></div>
+      <div class="task"><span class="n">04</span><div><h4>破短板：每周一次当众讲话</h4><p>从班会发言、社团汇报开始，每次 3 分钟，提前写提纲。表达是可以练的，不练就永远是短板。</p></div></div>
+    </div>
+  </div>
+  <div class="rail"><i></i><i></i><i></i><i class="on"></i><i></i></div>
+</section>
+
+<!-- ============ 18 中期 ============ -->
+<section class="slide">
+  <div class="grid-bg"></div>
+  <header class="hd"><span class="tag">04 · 行动路径</span><span class="pg">18 / 22</span></header>
+  <h2 class="title">中期｜大三：<em>用一次实习验证判断</em></h2>
+  <div class="body">
+    <div class="goal">
+      <div class="lb">ONE-YEAR GOAL</div>
+      <div class="g">一张证<br>一份实习证明<br>一套过线的模拟卷</div>
+      <div class="chk">
+        <div class="lb">验收标准</div>
+        <ul>
+          <li>低压电工作业证（大三上）</li>
+          <li>暑期实习 ≥ 4 周，有书面证明</li>
+          <li>统考模拟卷稳定过线</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tasks">
+      <div class="task"><span class="n">01</span><div><h4>考证：大三上学期拿下低压电工证</h4><p>报名费几百块，培训两周。它是电网现场岗位的门票，也是我第一次以"准从业者"的身份进现场。</p></div></div>
+      <div class="task"><span class="n">02</span><div><h4>实习：投 10 家，从县公司开始投</h4><p>目标南方电网实习生计划，或区内电气企业。不挑城市、不挑岗位，先看清楚"这份工作每天在干什么"。简历早在大二暑假就写好第一版。</p></div></div>
+      <div class="task"><span class="n">03</span><div><h4>学业：继电保护、电力系统分析必须扎实</h4><p>这两门是统考大头，也是面试最常问的。上课认真听，课后自己画一遍接线图，比刷十套题有用。</p></div></div>
+      <div class="task"><span class="n">04</span><div><h4>备赛：大三下开始刷题，每周 2 套</h4><p>真题 + 模拟卷，错题本按科目分类。坚持 30 周，比考前突击两个月靠谱。</p></div></div>
+    </div>
+  </div>
+  <div class="rail"><i></i><i></i><i></i><i class="on"></i><i></i></div>
+</section>
+
+<!-- ============ 19 长期 ============ -->
+<section class="slide">
+  <div class="grid-bg"></div>
+  <header class="hd"><span class="tag">04 · 行动路径</span><span class="pg">19 / 22</span></header>
+  <h2 class="title">长期｜大四 — 入职三年：<em>从学生到值班员</em></h2>
+  <div class="body">
+    <div class="tl">
+      <div class="line"></div>
+      <div class="pts">
+        <div class="p"><div class="y">大四上 · 2029</div><h4>统考与校招双线</h4><p>10–11 月南网统考报名与笔试；同步投装备制造企业作备选。考研只作为第三条腿，不 all in。</p></div>
+        <div class="p"><div class="y">入职 1 年</div><h4>能独立干一件事</h4><p>跟班学习，独立完成一次倒闸操作、写一份规范的作业卡。把规程从"背下来"变成"用得对"。</p></div>
+        <div class="p"><div class="y">2–3 年</div><h4>考高级工，进骨干序列</h4><p>参加一次公司技能竞赛，争取进班组技术骨干。这一步决定我是"混日子"还是"有手艺"。</p></div>
+        <div class="p"><div class="y">第 5 年</div><h4>能带新人，开始选方向</h4><p>带 1–2 个新人；视条件报考注册电气工程师。此时再判断：走技术线，还是转管理线。</p></div>
+      </div>
+    </div>
+    <div class="fail" style="margin-top:8px">
+      <span class="lbl">不承诺的</span>
+      <p>不承诺"五年当上主管"，也不承诺"年薪三十万"。电力行业的节奏就是这样：<b>前三年熬资历，第五年见分水岭。</b>我能承诺的只有一件事——每一年都留下可验证的东西：一张证、一份记录、一次竞赛成绩。</p>
+    </div>
+  </div>
+  <div class="rail"><i></i><i></i><i></i><i class="on"></i><i></i></div>
+</section>
+
+<!-- ============ 20 section 05 ============ -->
+<section class="slide dark section">
+  <div class="bignum">05</div>
+  <div class="sec-inner">
+    <div class="en">REVIEW</div>
+    <h2>评估调整</h2>
+    <p class="lead">计划一定会失效。<br>所以要提前写清楚：什么信号出现，我就换路。</p>
+    <div class="barline"></div>
+  </div>
+</section>
+
+<!-- ============ 21 评估矩阵 ============ -->
+<section class="slide">
+  <div class="grid-bg"></div>
+  <header class="hd"><span class="tag">05 · 评估调整</span><span class="pg">21 / 22</span></header>
+  <h2 class="title">红灯亮起时，<em>我该做什么</em></h2>
+  <div class="body">
+    <table class="mtx">
+      <tr><th style="width:150px">阶段</th><th style="width:300px">红灯信号（出现即触发）</th><th>对应动作</th></tr>
+      <tr>
+        <td class="s">大一 — 大二</td>
+        <td class="bad">绩点连续两学期 &lt; 3.0；四级三次未过</td>
+        <td>砍掉学生会，只留电协；换自习地点与时段；找学长补高数，不再自学硬扛。</td>
+      </tr>
+      <tr>
+        <td class="s">大三</td>
+        <td class="bad">暑期没有拿到任何实习；模拟卷连续三次不过线</td>
+        <td>转向装备制造校招（更看项目）；或改为全力考研，用一年时间换一个更高的起点。</td>
+      </tr>
+      <tr>
+        <td class="s">大四 — 入职</td>
+        <td class="bad">被分到偏远站所且三年无成长；身体扛不住倒班</td>
+        <td>转设备厂商的技术支持岗；或考研换赛道；或回县城考编，接受收入下降换生活节奏。</td>
+      </tr>
+    </table>
+    <div class="planb">
+      <span class="lb">PLAN B</span>
+      <span class="chip">① 县公司 / 农电</span>
+      <span class="chip">② 设备厂 调试岗</span>
+      <span class="chip">③ 考研（电气专硕）</span>
+      <span class="chip">④ 回县城考编</span>
+    </div>
+    <p style="margin-top:26px;font-size:15px;line-height:1.8"><b>保底不是失败，是让自己有退路，才敢往前冲。</b><span class="mut">　这四条备选，每一条我都能说出它要我付什么代价——这才叫"有退路"。</span></p>
+  </div>
+  <div class="rail"><i></i><i></i><i></i><i></i><i class="on"></i></div>
+</section>
+
+<!-- ============ 22 封底 ============ -->
+<section class="slide dark end">
+  <div class="grid"></div>
+  <svg class="wave" style="position:absolute;left:0;right:0;bottom:-2px;width:1280px;height:300px;opacity:.8" viewBox="0 0 1280 300" preserveAspectRatio="none" fill="none">
+    <path d="M0,190 C120,120 200,120 320,190 C440,260 520,260 640,190 C760,120 840,120 960,190 C1080,260 1200,260 1280,196" stroke="rgba(233,161,59,.3)" stroke-width="2"/>
+    <path d="M0,232 C120,162 200,162 320,232 C440,302 520,302 640,232 C760,162 840,162 960,232 C1080,302 1200,302 1280,238" stroke="rgba(91,141,239,.24)" stroke-width="2"/>
+  </svg>
+  <div class="q">把电送到需要它的地方，<br>这件事本身就值得做。
+    <small>谢谢聆听 · 恳请各位老师指正</small>
+  </div>
+  <div class="sig">
+    <div>姓　名<b class="blank" style="color:rgba(255,255,255,.35)">＿＿＿＿＿＿</b></div>
+    <div>学　号<b class="blank" style="color:rgba(255,255,255,.35)">＿＿＿＿＿＿</b></div>
+    <div>桂林电子科技大学 · 机电工程学院<b>2026 年 11 月</b></div>
+  </div>
+</section>
+
+</div>
+
+<script>
+(function(){
+  var slides = document.querySelectorAll('.slide');
+  function fit(){
+    var s = Math.min(1, (window.innerWidth - 64) / 1280);
+    slides.forEach(function(el){
+      el.style.transform = 'scale(' + s + ')';
+      var slot = el.parentElement;
+      slot.style.height = (720 * s) + 'px';
+      slot.style.width = (1280 * s) + 'px';
+    });
+  }
+  window.addEventListener('resize', fit);
+  fit();
+})();
+</script>
+</body>
+</html>
